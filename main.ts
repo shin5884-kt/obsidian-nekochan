@@ -1,12 +1,46 @@
-import { Notice, Plugin } from 'obsidian';
+import { addIcon, IconName, ItemView, Notice, Plugin } from 'obsidian';
+
+const NekochanViewType = "nekochan";
+class NekochanView extends ItemView {
+	getViewType(): string {
+		return NekochanViewType;
+	}
+
+	getDisplayText(): string {
+		return "nekochan";
+	}
+
+	getIcon(): IconName {
+		return "cat";
+	}
+
+	async onOpen() {
+		const contentEl = this.containerEl.children[1];
+		contentEl.empty()
+	}
+}
 
 export default class MyPlugin extends Plugin {
+	view: NekochanView;
+
+	private initView = () => {
+		if (this.app.workspace.getLeavesOfType(NekochanViewType).length) {
+			return;
+		}
+
+		this.app.workspace.getLeftLeaf(false)?.setViewState({
+			type: NekochanViewType,
+			active: true
+		});
+	};
 
 	async onload() {
-		const ribbonIconEl = this.addRibbonIcon('cat', 'nekochan', (evt: MouseEvent) => {
-			new Notice('This is a nekochan plugin!');
-		});
-		ribbonIconEl.addClass('my-plugin-ribbon-class');
+		this.addRibbonIcon('cat', 'nekochan', this.initView);
+
+		this.registerView(
+			NekochanViewType,
+			(leaf) => this.view = new NekochanView(leaf)
+		);
 	}
 
 	onunload() {
