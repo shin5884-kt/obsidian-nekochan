@@ -11,7 +11,17 @@ export const ReactView = () => {
         });
     }, []);
 
-    return <div>{loading || <img src={imageUrl}/>}</div>;
+    const handleClick = async () => {
+        setLoading(true);
+        const newImage = await fetchNekoImage();
+        setImageUrl(newImage.url);
+        setLoading(false);
+    }
+
+    return <div>
+            <button onClick={handleClick}>I need more nekochan</button>
+            <div>{loading || <img src={imageUrl}/>}</div>
+        </div>
 }
 
 type Image = {
