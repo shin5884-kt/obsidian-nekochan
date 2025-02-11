@@ -1,24 +1,5 @@
-import { addIcon, IconName, ItemView, Notice, Plugin } from 'obsidian';
-
-const NekochanViewType = "nekochan";
-class NekochanView extends ItemView {
-	getViewType(): string {
-		return NekochanViewType;
-	}
-
-	getDisplayText(): string {
-		return "nekochan";
-	}
-
-	getIcon(): IconName {
-		return "cat";
-	}
-
-	async onOpen() {
-		const contentEl = this.containerEl.children[1];
-		contentEl.empty()
-	}
-}
+import { Plugin } from 'obsidian';
+import { NekochanView, NekochanViewType } from './NekochanView';
 
 export default class MyPlugin extends Plugin {
 	view: NekochanView;
