@@ -18,9 +18,9 @@ export const ReactView = () => {
         setLoading(false);
     }
 
-    return <div>
-            <button onClick={handleClick}>I need more nekochan</button>
-            <div>{loading || <img src={imageUrl}/>}</div>
+    return <div className="page">
+            <button onClick={handleClick} className="button">I need more nekochan</button>
+            <div className="frame">{loading || <img src={imageUrl} className="img"/>}</div>
         </div>
 }
 
